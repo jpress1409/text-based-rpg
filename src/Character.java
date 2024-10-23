@@ -1,6 +1,6 @@
 public class Character {
     private String name;
-    private int health;
+    int health;
     private int attackPower;
 
     public Character(String name, int health, int attackPower) {
@@ -13,7 +13,7 @@ public class Character {
         return name;
     }
 
-    public int getHealth() {
+    public static int getHealth() {
         return health;
     }
 

@@ -1,6 +1,7 @@
+import java.util.Random;
 
 public class Player {
-    private int health;
+    private static int health;
     private int stamina;
     private int mana;
     private int armor;
@@ -10,6 +11,8 @@ public class Player {
     private int damage;
     private int x, y;
     private GameMap gameMap;
+    private int maxHealth;
+    private Game Guard;
 
     // Constructor
     public Player(PlayerType type, String name, int health, int stamina, int mana, int armor) {
@@ -18,7 +21,9 @@ public class Player {
         this.health = health; // Initialize health
         this.stamina = stamina; // Initialize stamina
         this.mana = mana; // Initialize mana
-        this.armor = armor; // Initialize armor
+        this.armor = armor;
+        this.baseDamage = 5;
+        this.maxHealth = health;// Initialize armor
     }
 
     // Getters
@@ -26,7 +31,7 @@ public class Player {
         return name;
     }
 
-    public int getHealth() {
+    public static int getHealth() {
         return health;
     }
 
@@ -70,6 +75,10 @@ public class Player {
     public void setType(PlayerType type) {
         this.type = type;
     }
+    public int setHealthMax(){
+        this.health = maxHealth;
+        return health;
+    }
 
     // Method to display player status
     public void displayStatus() {
@@ -85,34 +94,31 @@ public class Player {
         System.out.println("Class: " + type); // Displays player type
 
     }
-    public Player(GameMap map, int startX, int startY) {
-        this.gameMap = map;
-        this.x = startX;
-        this.y = startY;
-    }
 
-    public void move(int deltaX, int deltaY) {
 
-    }
 
-    public Location getCurrentLocation() {
-        return gameMap.getLocation(x, y);
-    }
-    public void setCurrentLocation() {
-        gameMap.getLocation(x, y);
-    }
     public boolean isAlive() {
-        if (health > 0)
-        {return true;}
-        else {
+        if (health <= 0) {
             return false;
         }
+        return true;
     }
-    public int attack() {
-        int attackPower = 5;
-        return attackPower; // Return attack power as damage
+    public int attackBars() {
+        health -= baseDamage;
+        return health; // Return attack power as damage
     }
 
     public void takeDamage(int damage) {
+    }
+    public static void battleMechWarrior(int baseDamage){
+
+        Enemy guard = new Enemy("Guard", 50, 10);
+        System.out.println("You Attack!");
+
+        while(Player.getHealth() > 0 || Enemy.getHealth() > 0){
+           ;
+
+
+        }
     }
 }

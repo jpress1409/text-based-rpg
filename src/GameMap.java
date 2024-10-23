@@ -1,27 +1,36 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameMap {
-    private Location[][] locations;
-    private int y = 0;
-    private int x = 0;
 
-    public GameMap(int width, int height) {
-        locations = new Location[height][width];
+    static Map<String, Room> rooms;
+
+    public GameMap() {
+        rooms = new HashMap<>();
+        createRooms();
     }
 
-    public void addLocation(int x, int y, Location location) {
-        locations[y][x] = location;
+    static void createRooms() {
+        Room startingRoom = new Room("Prison Cell", "You awake in a dimly lit room on a stone floor. You look up to see the bars. You have been arrested. ");
+        Room northRoom = new Room("North Room", "You are in a room with a high ceiling. There are doors to the east and south.");
+        Room eastRoom = new Room("East Room", "You are in a small room with a window. There is a door to the west.");
+
+        rooms.put("Prison Cell", startingRoom);
+        rooms.put("northRoom", northRoom);
+        rooms.put("eastRoom", eastRoom);
+
+        // Connect the rooms
+        startingRoom.addExit("north", northRoom);
+        northRoom.addExit("south", startingRoom);
+        northRoom.addExit("east", eastRoom);
+        eastRoom.addExit("west", northRoom);
     }
 
-    public Location getLocation(int x, int y) {
-        return locations[y][x];
+    public static Room getRoom(String roomName) {
+        return rooms.get(roomName);
     }
 
-
-    public int getWidth() {
-    return x;
-    }
-
-    public int getHeight() {
-    return y;
+    public static Room getStartingRoom() {
+        return rooms.get("Prison Cell");
     }
 }
-
